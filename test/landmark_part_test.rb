@@ -118,5 +118,25 @@ class LandmarkPartTest < Test::Unit::TestCase
         assert_equal true,  @landmark_part.contact?(0b000000000001)
       }
     }
+    ###########################################################################
+    # TRANSFORMATIONS
+    context('any landmark placement') {
+      setup {
+        @landmark_part = @landmark_part_class.new(0b110000010001)
+      }
+      { :clockwise => 0b001110000010,
+        :back => 0b010001110000,
+        :counterclockwise => 0b000010001110
+      }.each { |rotation, new_sides|
+        context("rotating #{rotation}") {
+          setup {
+            @transformed_landmark_part = @landmark_part.send(rotation)
+          }
+          should('show a new landmark with matching sides') {
+            assert_equal new_sides, @transformed_landmark_part.sides
+          }
+        }
+      }
+    }
   }
 end
