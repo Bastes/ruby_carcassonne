@@ -1,4 +1,4 @@
-module RubyCarcassonne::LandmarkPart
+class RubyCarcassonne::LandmarkPart
   CONTACTS = [
     :north_west,
     :north,
@@ -13,10 +13,6 @@ module RubyCarcassonne::LandmarkPart
     :west,
     :west_north
   ].reverse.inject({}) { |r, k| r.tap { r[k] = 1 << r.length } }
-
-  def self.included(base)
-    base.extend ClassMethods
-  end
 
   def initialize sides
     @sides = sides
@@ -43,17 +39,15 @@ module RubyCarcassonne::LandmarkPart
     end
   end
 
-  module ClassMethods
-    def clockwise(sides)
-      ((sides & 0b111) << 9) + ((sides & 0b111111111000) >> 3)
-    end
+  def self.clockwise(sides)
+    ((sides & 0b111) << 9) + ((sides & 0b111111111000) >> 3)
+  end
 
-    def counterclockwise(sides)
-      ((sides & 0b111111111) << 3) + ((sides & 0b111000000000) >> 9)
-    end
+  def self.counterclockwise(sides)
+    ((sides & 0b111111111) << 3) + ((sides & 0b111000000000) >> 9)
+  end
 
-    def back(sides)
-      ((sides & 0b111111) << 6) + ((sides & 0b111111000000) >> 6)
-    end
+  def self.back(sides)
+    ((sides & 0b111111) << 6) + ((sides & 0b111111000000) >> 6)
   end
 end

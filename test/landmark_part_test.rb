@@ -2,13 +2,11 @@ require_relative 'helper'
 
 class LandmarkPartTest < Test::Unit::TestCase
   context("A nondescript landmark part class") {
+    setup {
+      @landmark_part_class = Class.new(RubyCarcassonne::LandmarkPart)
+    }
     ###########################################################################
     # RAW SIDES CONSERVATION
-    setup {
-      @landmark_part_class = Class.new do
-        include RubyCarcassonne::LandmarkPart
-      end
-    }
     [0b0,0b1,0b100000000000,0b10010, 0b101101].each { |sides|
       context("given these sides : #{sides.to_s(2)}") {
         setup {
@@ -99,7 +97,7 @@ class LandmarkPartTest < Test::Unit::TestCase
     }
     ###########################################################################
     # RAW CONTACT CHECK
-    context('any landmark placement') {
+    context('with any landmark placement') {
       setup {
         @landmark_part = @landmark_part_class.new(0b010010110101)
       }
