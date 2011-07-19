@@ -43,6 +43,10 @@ module RubyCarcassonne::Landmark
       @sides
     end
 
+    def sides_count
+      self.class.count_sides(@sides)
+    end
+
     def contact?(mask)
       @sides & mask > 0
     end
@@ -77,6 +81,12 @@ module RubyCarcassonne::Landmark
 
     def self.back(sides)
       ((sides & 0b111111) << 6) + ((sides & 0b111111000000) >> 6)
+    end
+
+    def self.count_sides(byte)
+      count = 0
+      count += byte & 1 and byte >>= 1 until byte == 0
+      count
     end
   end
 end

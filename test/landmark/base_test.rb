@@ -162,5 +162,22 @@ class LandmarkBaseTest < Test::Unit::TestCase
         assert_equal false, @first_landmark.connects?(@other_landmark, :west)
       }
     }
+    ###########################################################################
+    # COUNTING SIDES
+    { 0b000000000000 => 0,
+      0b000010000000 => 1,
+      0b001000101000 => 3,
+      0b101111011011 => 9,
+      0b111111111111 => 12
+    }.each { |sides, number|
+      context("a landmark with #{number} side(s)") {
+        setup {
+          @landmark = @landmark_class.new(sides)
+        }
+        should("count #{number} sides") {
+          assert_equal number, @landmark.sides_count
+        }
+      }
+    }
   }
 end
