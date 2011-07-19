@@ -15,6 +15,26 @@ module RubyCarcassonne::Landmark
       :west_north
     ].reverse.inject({}) { |r, k| r.tap { r[k] = 1 << r.length } }
 
+    SIDE_STEP = [
+      :north,
+      :east,
+      :south,
+      :west
+    ].reverse.inject({}) { |r, k| r.tap { r[k] = r.length * 3 } }
+
+    SIDE_MASK = [
+      :north,
+      :east,
+      :south,
+      :west
+    ].reverse.inject({}) { |r, k| r.tap { r[k] = 0b111 << (r.length * 3) } }
+
+    OPPOSITE = {
+      :north => :south,
+      :east => :west,
+      :south => :north,
+      :west => :east }
+
     def initialize sides
       @sides = sides
     end
@@ -33,6 +53,13 @@ module RubyCarcassonne::Landmark
         contact? mask
       }
     }
+
+    def connects?(other, direction)
+      opposite = OPPOSITE[direction]
+      side = (sides & SIDE_MASK[direction]) >> SIDE_STEP[direction]
+      other_side = (other.sides & SIDE_MASK[opposite]) >> SIDE_STEP[opposite]
+      side == other_side
+    end
 
     [:clockwise, :back, :counterclockwise].each do |rotation|
       define_method(rotation) do
