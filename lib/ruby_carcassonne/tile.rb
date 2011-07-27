@@ -6,7 +6,11 @@ module RubyCarcassonne
     attr_reader :landmarks
 
     def initialize(*landmarks)
-      raise InvalidTileError.new unless landmarks.inject(0) { |r, l| r | l.sides } == 0b111111111111
+      sum = landmarks.inject(0) { |r, l|
+        raise InvalidTileError.new unless (r & l.sides) == 0
+        r | l.sides
+      }
+      raise InvalidTileError.new unless sum == 0b111111111111
       @landmarks = landmarks
     end
   end
