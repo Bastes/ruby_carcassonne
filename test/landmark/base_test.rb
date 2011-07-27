@@ -3,7 +3,7 @@ require_relative '../helper'
 class LandmarkBaseTest < Test::Unit::TestCase
   context("A nondescript landmark part class") {
     setup {
-      @landmark_class = Class.new(RubyCarcassonne::Landmark::Base)
+      @landmark_class = Class.new(Landmark::Base)
     }
     ###########################################################################
     # RAW SIDES CONSERVATION

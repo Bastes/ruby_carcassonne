@@ -12,9 +12,7 @@ class LandmarkFieldTest < Test::Unit::TestCase
         0b001100000000,
         0b111111111111
       ].each { |setting|
-        assert_nothing_raised {
-          RubyCarcassonne::Landmark::Field.new(setting) }
-      }
+        assert_nothing_raised { Field.new(setting) } }
     }
   }
 end

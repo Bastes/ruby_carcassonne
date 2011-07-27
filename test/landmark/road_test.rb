@@ -8,8 +8,7 @@ class LandmarkRoadTest < Test::Unit::TestCase
         0b000000010000,
         0b000000000010
       ].each { |setting|
-        assert_nothing_raised {
-          RubyCarcassonne::Landmark::Road.new(setting) }
+        assert_nothing_raised { Road.new(setting) }
       }
     }
   }
@@ -20,8 +19,7 @@ class LandmarkRoadTest < Test::Unit::TestCase
         0b000010010000,
         0b010000000010
       ].each { |setting|
-        assert_nothing_raised {
-          RubyCarcassonne::Landmark::Road.new(setting) }
+        assert_nothing_raised { Road.new(setting) }
       }
     }
   }
@@ -32,8 +30,7 @@ class LandmarkRoadTest < Test::Unit::TestCase
         0b010000010010,
         0b000010010010
       ].each { |setting|
-        assert_raise(RubyCarcassonne::Landmark::Road::SideNumberError) {
-          RubyCarcassonne::Landmark::Road.new(setting) }
+        assert_raise(Road::SideNumberError) { Road.new(setting) }
       }
     }
   }
@@ -44,8 +41,7 @@ class LandmarkRoadTest < Test::Unit::TestCase
         0b010100000000,
         0b000000100010
       ].each { |setting|
-        assert_raise(RubyCarcassonne::Landmark::Road::SidePositionError) {
-          RubyCarcassonne::Landmark::Road.new(setting) }
+        assert_raise(Road::SidePositionError) { Road.new(setting) }
       }
     }
   }
