@@ -179,5 +179,55 @@ class LandmarkBaseTest < Test::Unit::TestCase
         }
       }
     }
+    [ 0b000000000000,
+      0b000101110001,
+      0b101110101100,
+      0b111111111111
+    ].each { |settings|
+      context("two identical landmarks from that same class") {
+        setup {
+          @first_landmark = @landmark_class.new(settings)
+          @other_landmark = @landmark_class.new(settings)
+        }
+        should("appear equal") {
+          assert @first_landmark == @other_landmark
+        }
+      }
+    }
+    { 0b000000000000 => 0b100000000000,
+      0b000101110001 => 0b101110101101,
+      0b101110101100 => 0b010100110101,
+      0b111111111111 => 0b111111111110
+    }.each { |first_settings, other_settings|
+      context("pairs of different landmarks from that same class") {
+        setup {
+          @first_landmark = @landmark_class.new(first_settings)
+          @other_landmark = @landmark_class.new(other_settings)
+        }
+        should("appear different") {
+          assert @first_landmark != @other_landmark
+        }
+      }
+    }
+    context("with another nondescript landmark class") {
+      setup {
+        @other_landmark_class = Class.new(Landmark::Base)
+      }
+      [ 0b000000000000,
+        0b000101110001,
+        0b101110101100,
+        0b111111111111
+      ].each { |settings|
+        context("pairs of otherwise identical landmarks from different classes") {
+          setup {
+            @first_landmark = @landmark_class.new(settings)
+            @other_landmark = @other_landmark_class.new(settings)
+          }
+          should("also appear different") {
+            assert @first_landmark != @other_landmark
+          }
+        }
+      }
+    }
   }
 end
