@@ -13,5 +13,11 @@ module RubyCarcassonne
       raise InvalidTileError.new unless sum == 0b111111111111
       @landmarks = landmarks
     end
+
+    [:clockwise, :back, :counterclockwise].each do |rotation|
+      define_method(rotation) do
+        self.class.new(*@landmarks.map(&rotation))
+      end
+    end
   end
 end

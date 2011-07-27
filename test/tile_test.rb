@@ -57,7 +57,8 @@ class TileTest < Test::Unit::TestCase
         Field.new(0b001111100000),
         Road.new(0b010000010000) ] },
     lambda {
-      [ City.new(0b111000000000),
+      [ Monastery.new,
+        City.new(0b111000000000),
         City.new(0b000111000000),
         Field.new(0b000000111111) ] },
     lambda {
@@ -73,7 +74,7 @@ class TileTest < Test::Unit::TestCase
         Road.new(0b000010000000),
         Road.new(0b000000000010) ] }
   ].each { |blueprints|
-    context("A tile with landmarks covering all the sides") {
+    context("A proper tile") {
       setup {
         @landmarks = blueprints.call
         @tile = Tile.new(*@landmarks)
@@ -81,6 +82,22 @@ class TileTest < Test::Unit::TestCase
       should('hold all landmarks properly encased') {
         assert_equal @landmarks.length, @tile.landmarks.length
         @landmarks.each { |landmark| assert @tile.landmarks.include?(landmark) }
+      }
+      { :clockwise => "clockwise rotation",
+        :counterclockwise => "counterclockwise rotation",
+        :back => "u-turn"
+      }.each { |method, name|
+        context("doing a #{name}") {
+          setup {
+            @rotated_tile = @tile.send(method)
+          }
+          should('have rotated all its landmarks') {
+            assert_equal @tile.landmarks.length, @rotated_tile.landmarks.length
+            @tile.landmarks.each { |landmark|
+              assert @rotated_tile.landmarks.include?(landmark.send(method))
+            }
+          }
+        }
       }
     }
   }
