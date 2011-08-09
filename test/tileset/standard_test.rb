@@ -66,5 +66,32 @@ class StandardTilesetTest < Test::Unit::TestCase
       Tile.new(
         City.new(0b111000000000),
         Field.new(0b000111111111)))
+    should_have_tiles.call(
+      3,
+      "L-shaped road near a single city",
+      RubyCarcassonne::Tileset::Standard::Tiles::LC,
+      Tile.new(
+        Field.new(0b100001000111),
+        Road.new(0b010010000000),
+        Field.new(0b001100000000),
+        City.new(0b000000111000)))
+    should_have_tiles.call(
+      3,
+      "I-shaped road near a single city",
+      RubyCarcassonne::Tileset::Standard::Tiles::IC,
+      Tile.new(
+        Field.new(0b100000001111),
+        Road.new(0b010000010000),
+        Field.new(0b001000100000),
+        City.new(0b000111000000)))
+    should_have_tiles.call(
+      3,
+      "single city near an L-shaped road",
+      RubyCarcassonne::Tileset::Standard::Tiles::CL,
+      Tile.new(
+        City.new(0b111000000000),
+        Field.new(0b000100001111),
+        Road.new(0b000010010000),
+        Field.new(0b000001100000)))
   }
 end
