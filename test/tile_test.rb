@@ -101,4 +101,20 @@ class TileTest < Test::Unit::TestCase
       }
     }
   }
+  context("Two tiles with identical landmarks") {
+    setup {
+      @first_tile = Tile.new(
+        Field.new(0b111000111111),
+        City.new(0b000111000000))
+      @other_tile = Tile.new(
+        City.new(0b000111000000),
+        Field.new(0b111000111111))
+    }
+    should("be equal") {
+      assert_equal @first_tile, @other_tile
+    }
+    should("not be the same instance") {
+      assert !@first_tile.equal?(@other_tile)
+    }
+  }
 end
