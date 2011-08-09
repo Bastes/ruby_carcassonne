@@ -21,6 +21,17 @@ class StandardTilesetTest < Test::Unit::TestCase
       tile = RubyCarcassonne::Tileset::Standard::Tiles::I.new
       assert_equal template, tile
     }
+    should("exhibit T-shaped road tiles") {
+      template = Tile.new(
+        Field.new(0b100000001111),
+        Road.new(0b010000000000),
+        Field.new(0b001100000000),
+        Road.new(0b000010000000),
+        Field.new(0b000001100000),
+        Road.new(0b000000010000))
+      tile = RubyCarcassonne::Tileset::Standard::Tiles::T.new
+      assert_equal template, tile
+    }
     context("instance") {
       setup {
         @tileset = RubyCarcassonne::Tileset::Standard.new
@@ -37,6 +48,13 @@ class StandardTilesetTest < Test::Unit::TestCase
         tiles = @tileset.tiles.select { |tile| tile == template }
         assert_equal 8, tiles.length
         (0..6).each { |i| ((i + 1)..7).each { |j|
+          assert !tiles[i].equal?(tiles[j]) } }
+      }
+      should("contain 4 different T-shaped road tiles") {
+        template = RubyCarcassonne::Tileset::Standard::Tiles::T.new
+        tiles = @tileset.tiles.select { |tile| tile == template }
+        assert_equal 4, tiles.length
+        (0..2).each { |i| ((i + 1)..3).each { |j|
           assert !tiles[i].equal?(tiles[j]) } }
       }
     }
