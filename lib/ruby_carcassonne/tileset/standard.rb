@@ -9,6 +9,14 @@ module RubyCarcassonne::Tileset
             Field.new(0b100001111111))
         end
       end
+      class I < RubyCarcassonne::Tile
+        def initialize
+          super(
+            Field.new(0b100000001111),
+            Road.new(0b010000010000),
+            Field.new(0b001111100000))
+        end
+      end
     end
 
     attr_reader :tiles
@@ -16,6 +24,7 @@ module RubyCarcassonne::Tileset
     def initialize
       @tiles = []
       9.times { @tiles << Tiles::L.new }
+      8.times { @tiles << Tiles::I.new }
     end
 
     def each *args, &block
