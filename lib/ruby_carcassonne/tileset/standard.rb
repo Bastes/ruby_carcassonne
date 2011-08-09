@@ -33,10 +33,11 @@ module RubyCarcassonne::Tileset
     attr_reader :tiles
 
     def initialize
-      @tiles = []
-      9.times { @tiles << Tiles::L.new }
-      8.times { @tiles << Tiles::I.new }
-      4.times { @tiles << Tiles::T.new }
+      @tiles = {
+        Tiles::L => 9,
+        Tiles::I => 8,
+        Tiles::T => 4
+      }.inject([]) { |r, p| r + Array.new(p[1]) { p[0].new } }
     end
 
     def each *args, &block
