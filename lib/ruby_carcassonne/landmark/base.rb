@@ -69,6 +69,10 @@ module RubyCarcassonne::Landmark
       self.class == other.class && @sides == other.sides
     end
 
+    def <=> other
+      other.sides <=> @sides
+    end
+
     [:clockwise, :back, :counterclockwise].each do |rotation|
       define_method(rotation) do
         self.class.new(self.class.send(rotation, @sides))

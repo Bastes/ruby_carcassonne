@@ -229,5 +229,26 @@ class LandmarkBaseTest < Test::Unit::TestCase
         }
       }
     }
+    context("nondescript landmark instances") {
+      setup {
+        @first_landmark = @landmark_class.new(0b000101000100)
+        @second_landmark = @landmark_class.new(0b010010110000)
+        @third_landmark = @landmark_class.new(0b101010001000)
+        @fourth_landmark = @landmark_class.new(0b010011111100)
+      }
+      should("be orderable") {
+        sorted = [
+          @first_landmark,
+          @second_landmark,
+          @third_landmark,
+          @fourth_landmark ].sort
+        template = [
+          @third_landmark,
+          @fourth_landmark,
+          @second_landmark,
+          @first_landmark ]
+        assert_equal template, sorted
+      }
+    }
   }
 end
