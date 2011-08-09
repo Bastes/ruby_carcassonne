@@ -59,5 +59,12 @@ class StandardTilesetTest < Test::Unit::TestCase
         Road.new(0b000000010000),
         Field.new(0b000000001100),
         Road.new(0b000000000010)))
+    should_have_tiles.call(
+      5,
+      "single city",
+      RubyCarcassonne::Tileset::Standard::Tiles::C,
+      Tile.new(
+        City.new(0b111000000000),
+        Field.new(0b000111111111)))
   }
 end

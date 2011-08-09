@@ -41,6 +41,13 @@ module RubyCarcassonne::Tileset
             Road.new(0b000000000010))
         end
       end
+      class C < RubyCarcassonne::Tile
+        def initialize
+          super(
+            City.new(0b111000000000),
+            Field.new(0b000111111111))
+        end
+      end
     end
 
     attr_reader :tiles
@@ -50,7 +57,8 @@ module RubyCarcassonne::Tileset
         Tiles::L => 9,
         Tiles::I => 8,
         Tiles::T => 4,
-        Tiles::X => 1
+        Tiles::X => 1,
+        Tiles::C => 5
       }.inject([]) { |r, p| r + Array.new(p[1]) { p[0].new } }
     end
 
