@@ -46,5 +46,18 @@ class StandardTilesetTest < Test::Unit::TestCase
         Road.new(0b000010000000),
         Field.new(0b000001100000),
         Road.new(0b000000010000)))
+    should_have_tiles.call(
+      1,
+      "crossroads",
+      RubyCarcassonne::Tileset::Standard::Tiles::X,
+      Tile.new(
+        Field.new(0b100000000001),
+        Road.new(0b010000000000),
+        Field.new(0b001100000000),
+        Road.new(0b000010000000),
+        Field.new(0b000001100000),
+        Road.new(0b000000010000),
+        Field.new(0b000000001100),
+        Road.new(0b000000000010)))
   }
 end
