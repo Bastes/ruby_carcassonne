@@ -205,5 +205,20 @@ class StandardTilesetTest < Test::Unit::TestCase
       RubyCarcassonne::Tileset::Standard::Tiles::Os,
       Tile.new(
         City.new(0b111111111111, true)))
+    should_have_tiles.call(
+      4,
+      "simple monastery",
+      RubyCarcassonne::Tileset::Standard::Tiles::M,
+      Tile.new(
+        Field.new(0b111111111111),
+        Monastery.new(0b000000000000)))
+    should_have_tiles.call(
+      2,
+      "monastery with a road",
+      RubyCarcassonne::Tileset::Standard::Tiles::MR,
+      Tile.new(
+        Field.new(0b101111111111),
+        Road.new(0b010000000000),
+        Monastery.new(0b000000000000)))
   }
 end
