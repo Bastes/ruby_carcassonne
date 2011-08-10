@@ -191,7 +191,7 @@ module RubyCarcassonne::Tileset
         def self.generate
           self.new(
             RubyCarcassonne::Landmark::Field.new(0b111111111111),
-            RubyCarcassonne::Landmark::Monastery.new(0b000000000000))
+            RubyCarcassonne::Landmark::Monastery.new)
         end
       end
       class MR < RubyCarcassonne::Tile
@@ -199,7 +199,7 @@ module RubyCarcassonne::Tileset
           self.new(
             RubyCarcassonne::Landmark::Field.new(0b111111101111),
             RubyCarcassonne::Landmark::Road. new(0b000000010000),
-            RubyCarcassonne::Landmark::Monastery.new(0b000000000000))
+            RubyCarcassonne::Landmark::Monastery.new)
         end
       end
     end
