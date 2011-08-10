@@ -8,7 +8,7 @@ class LandmarkCityTest < Test::Unit::TestCase
         0b111000111111,
         0b111111111111
       ].each { |settings|
-        assert_nothing_raised { City.new(settings) } }
+        assert_nothing_raised { RubyCarcassonne::Landmark::City.new(settings) } }
     }
   }
   context("A city with holes in its walls") {
@@ -19,12 +19,12 @@ class LandmarkCityTest < Test::Unit::TestCase
         0b111100111001,
         0b000000100001
       ].each { |settings|
-        assert_raise(City::SidesCoherenceError) { City.new(settings) } }
+        assert_raise(RubyCarcassonne::Landmark::City::SidesCoherenceError) { RubyCarcassonne::Landmark::City.new(settings) } }
     }
   }
   context("A city with no walls") {
     should("not exist") {
-      assert_raise(City::NoSidesError) { City.new(0b000000000000) }
+      assert_raise(RubyCarcassonne::Landmark::City::NoSidesError) { RubyCarcassonne::Landmark::City.new(0b000000000000) }
     }
   }
   context("A valid city with a shield") {
@@ -33,10 +33,10 @@ class LandmarkCityTest < Test::Unit::TestCase
       0b111000111000
     ].each { |settings|
       setup {
-        @first_city = City.new(settings, true)
-        @other_city = City.new(settings)
-        @identical_city = City.new(settings, true)
-        @other_identical_city = City.new(settings)
+        @first_city = RubyCarcassonne::Landmark::City.new(settings, true)
+        @other_city = RubyCarcassonne::Landmark::City.new(settings)
+        @identical_city = RubyCarcassonne::Landmark::City.new(settings, true)
+        @other_identical_city = RubyCarcassonne::Landmark::City.new(settings)
       }
       should("show a shield whereas other cities show none") {
         assert @first_city.shield?
