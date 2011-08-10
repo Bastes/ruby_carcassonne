@@ -144,5 +144,13 @@ class StandardTilesetTest < Test::Unit::TestCase
         Field.new(0b000000100000),
         Road.new(0b000000010000),
         Field.new(0b000000001000)))
+    should_have_tiles.call(
+      2,
+      "cities in a corner",
+      RubyCarcassonne::Tileset::Standard::Tiles::CC,
+      Tile.new(
+        City.new(0b111000000000),
+        City.new(0b000111000000),
+        Field.new(0b000000111111)))
   }
 end
