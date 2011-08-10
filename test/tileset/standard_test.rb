@@ -152,5 +152,13 @@ class StandardTilesetTest < Test::Unit::TestCase
         City.new(0b111000000000),
         City.new(0b000111000000),
         Field.new(0b000000111111)))
+    should_have_tiles.call(
+      3,
+      "cities face to face",
+      RubyCarcassonne::Tileset::Standard::Tiles::CFC,
+      Tile.new(
+        City.new(0b111000000000),
+        Field.new(0b000111000111),
+        City.new(0b000000111000)))
   }
 end
