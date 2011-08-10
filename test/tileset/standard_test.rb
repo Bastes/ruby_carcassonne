@@ -160,5 +160,50 @@ class StandardTilesetTest < Test::Unit::TestCase
         City.new(0b111000000000),
         Field.new(0b000111000111),
         City.new(0b000000111000)))
+    should_have_tiles.call(
+      2,
+      "shileded 2-sides city",
+      RubyCarcassonne::Tileset::Standard::Tiles::Ds,
+      Tile.new(
+        City.new(0b111111000000, true),
+        Field.new(0b000000111111)))
+    should_have_tiles.call(
+      2,
+      "L-shaped road next to a shielded two-sides city",
+      RubyCarcassonne::Tileset::Standard::Tiles::LDs,
+      Tile.new(
+        Field.new(0b100001000000),
+        Road.new(0b010010000000),
+        Field.new(0b001100000000),
+        City.new(0b000000111111, true)))
+    should_have_tiles.call(
+      2,
+      "shielded H-shaped city",
+      RubyCarcassonne::Tileset::Standard::Tiles::Hs,
+      Tile.new(
+        Field.new(0b111000111000),
+        City.new(0b000111000111, true)))
+    should_have_tiles.call(
+      1,
+      "shielded A-shaped city",
+      RubyCarcassonne::Tileset::Standard::Tiles::As,
+      Tile.new(
+        City.new(0b111111000111, true),
+        Field.new(0b000000111000)))
+    should_have_tiles.call(
+      2,
+      "shielded A-shaped city with a road",
+      RubyCarcassonne::Tileset::Standard::Tiles::AsR,
+      Tile.new(
+        City.new(0b111111000111, true),
+        Field.new(0b000000100000),
+        Road.new(0b000000010000),
+        Field.new(0b000000001000)))
+    should_have_tiles.call(
+      1,
+      "shielded complete city",
+      RubyCarcassonne::Tileset::Standard::Tiles::Os,
+      Tile.new(
+        City.new(0b111111111111, true)))
   }
 end
