@@ -27,4 +27,26 @@ class LandmarkCityTest < Test::Unit::TestCase
       assert_raise(City::NoSidesError) { City.new(0b000000000000) }
     }
   }
+  context("A valid city with a shield") {
+    [ 0b111000000000,
+      0b000111111000,
+      0b111000111000
+    ].each { |settings|
+      setup {
+        @first_city = City.new(settings, true)
+        @other_city = City.new(settings)
+        @identical_city = City.new(settings, true)
+        @other_identical_city = City.new(settings)
+      }
+      should("show a shield whereas other cities show none") {
+        assert @first_city.shield?
+        assert !@other_city.shield?
+      }
+      should("be different from another city with the same sides but without the shield") {
+        assert @first_city != @other_city
+        assert @first_city == @identical_city
+        assert @other_city == @other_identical_city
+      }
+    }
+  }
 end
