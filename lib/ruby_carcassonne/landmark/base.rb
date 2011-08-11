@@ -1,39 +1,34 @@
 module RubyCarcassonne::Landmark
   class Base
-    CONTACTS = [
-      :north_west,
-      :north,
-      :north_east,
-      :east_north,
-      :east,
-      :east_south,
-      :south_east,
-      :south,
-      :south_west,
-      :west_south,
+    DIRECTIONS = [
       :west,
-      :west_north
-    ].reverse.inject({}) { |r, k| r.tap { r[k] = 1 << r.length } }
-
-    SIDE_STEP = [
-      :north,
-      :east,
       :south,
-      :west
-    ].reverse.inject({}) { |r, k| r.tap { r[k] = r.length * 3 } }
-
-    SIDE_MASK = [
-      :north,
       :east,
-      :south,
-      :west
-    ].reverse.inject({}) { |r, k| r.tap { r[k] = 0b111 << (r.length * 3) } }
+      :north ]
 
-    OPPOSITE = {
-      :north => :south,
-      :east => :west,
-      :south => :north,
-      :west => :east }
+    SIDES = (0..DIRECTIONS.length.pred).
+      inject([]) { |r, i|
+        p = DIRECTIONS[i.pred % DIRECTIONS.length]
+        d = DIRECTIONS[i]
+        n = DIRECTIONS[i.next % DIRECTIONS.length]
+        r << :"#{d}_#{p}" << d << :"#{d}_#{n}" }
+
+    CONTACTS = SIDES.inject({}) { |r, k| r.tap { r[k] = 1 << r.length } }
+
+    SIDE_STEP = DIRECTIONS.inject({}) { |r, k| r.tap { r[k] = r.length * 3 } }
+
+    SIDE_MASK = DIRECTIONS.inject({}) { |r, k| r.tap { r[k] = 0b111 << (r.length * 3) } }
+
+    OPPOSITE = (0..DIRECTIONS.length.pred).
+      inject({}) { |r, i|
+        r.tap {
+          c = i * 3 + 1
+          o = (c + SIDES.length / 2) % SIDES.length
+          r[SIDES[c.pred]] = SIDES[o.next]
+          r[SIDES[c]]      = SIDES[o]
+          r[SIDES[c.next]] = SIDES[o.pred]
+        }
+      }
 
     def initialize sides
       @sides = sides
