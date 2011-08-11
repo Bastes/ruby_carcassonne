@@ -140,8 +140,8 @@ class LandmarkBaseTest < Test::Unit::TestCase
     # LANDMARK CONNECTION
     context("two landmarks matching north-south / east-west") {
       setup {
-        @first_landmark = @landmark_class.new(0b101001001101)
-        @other_landmark = @landmark_class.new(0b001101101001)
+        @first_landmark = @landmark_class.new(0b101001001111)
+        @other_landmark = @landmark_class.new(0b100101001101)
       }
       should("match on each of their sides") {
         assert_equal true, @first_landmark.connects?(@other_landmark, :north)
@@ -153,13 +153,13 @@ class LandmarkBaseTest < Test::Unit::TestCase
     context("two landmarks not matching north-south / east-west") {
       setup {
         @first_landmark = @landmark_class.new(0b010111010110)
-        @other_landmark = @landmark_class.new(0b110100011011)
+        @other_landmark = @landmark_class.new(0b100100101000)
       }
-      should("match on each of their sides") {
-        assert_equal false, @first_landmark.connects?(@other_landmark, :north)
-        assert_equal false, @first_landmark.connects?(@other_landmark, :east)
-        assert_equal false, @first_landmark.connects?(@other_landmark, :south)
-        assert_equal false, @first_landmark.connects?(@other_landmark, :west)
+      should("not match on any of their sides") {
+        assert !@first_landmark.connects?(@other_landmark, :north)
+        assert !@first_landmark.connects?(@other_landmark, :east)
+        assert !@first_landmark.connects?(@other_landmark, :south)
+        assert !@first_landmark.connects?(@other_landmark, :west)
       }
     }
     ###########################################################################

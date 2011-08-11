@@ -62,7 +62,8 @@ module RubyCarcassonne::Landmark
       opposite = OPPOSITE[direction]
       side = (sides & SIDE_MASK[direction]) >> SIDE_STEP[direction]
       other_side = (other.sides & SIDE_MASK[opposite]) >> SIDE_STEP[opposite]
-      side == other_side
+      (0..2).
+        any? { |i| (side & (1 << i)) > 0 && (other_side & (0b100 >> i)) > 0 }
     end
 
     def == other
