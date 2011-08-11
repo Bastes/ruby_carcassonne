@@ -20,6 +20,16 @@ module RubyCarcassonne
       end
     end
 
+    def side(direction)
+      mask = RubyCarcassonne::Landmark::Base::CONTACTS[direction]
+      @landmarks.detect { |l| l.sides & mask > 0 }
+    end
+
+    def connects?(other, direction)
+      opposite = RubyCarcassonne::Landmark::Base::OPPOSITE[direction]
+      side(direction).class == other.side(opposite).class
+    end
+
     def ==(other)
       landmarks == other.landmarks
     end

@@ -117,4 +117,50 @@ class TileTest < Test::Unit::TestCase
       assert !@first_tile.equal?(@other_tile)
     }
   }
+  context("Connectable tiles") {
+    setup {
+      @x  = RubyCarcassonne::Tileset::Standard::Tiles::X.generate
+      @ic = RubyCarcassonne::Tileset::Standard::Tiles::IC.generate
+      @ld = RubyCarcassonne::Tileset::Standard::Tiles::LD.generate
+      @mr = RubyCarcassonne::Tileset::Standard::Tiles::MR.generate
+      @hs = RubyCarcassonne::Tileset::Standard::Tiles::Hs.generate
+      @as = RubyCarcassonne::Tileset::Standard::Tiles::As.generate
+    }
+    should("connect where they may") {
+      assert @x. connects?(@ic, :north)
+      assert @x. connects?(@ic, :south)
+      assert @x. connects?(@ld, :south)
+      assert @x. connects?(@ld, :west)
+      assert @x. connects?(@mr, :north)
+      assert @ic.connects?(@ld, :south)
+      assert @ic.connects?(@ld, :east)
+      assert @ic.connects?(@mr, :north)
+      assert @ic.connects?(@mr, :west)
+      assert @ld.connects?(@mr, :north)
+      assert @ld.connects?(@hs, :west)
+      assert @ld.connects?(@as, :south)
+      assert @ld.connects?(@as, :west)
+    }
+    should("not connect where they may not") {
+      assert !@x. connects?(@ic, :east)
+      assert !@x. connects?(@ic, :west)
+      assert !@x. connects?(@ld, :north)
+      assert !@x. connects?(@ld, :east)
+      assert !@x. connects?(@mr, :east)
+      assert !@x. connects?(@mr, :south)
+      assert !@x. connects?(@mr, :west)
+      assert !@ic.connects?(@ld, :north)
+      assert !@ic.connects?(@ld, :west)
+      assert !@ic.connects?(@mr, :east)
+      assert !@ic.connects?(@mr, :south)
+      assert !@ld.connects?(@mr, :east)
+      assert !@ld.connects?(@mr, :south)
+      assert !@ld.connects?(@mr, :west)
+      assert !@ld.connects?(@hs, :north)
+      assert !@ld.connects?(@hs, :east)
+      assert !@ld.connects?(@hs, :south)
+      assert !@ld.connects?(@as, :east)
+      assert !@ld.connects?(@as, :north)
+    }
+  }
 end
