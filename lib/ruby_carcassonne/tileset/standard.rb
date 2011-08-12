@@ -204,8 +204,9 @@ module RubyCarcassonne::Tileset
       end
     end
 
-    attr_reader :tiles,
-                :picked
+    include Enumerable
+
+    attr_reader :picked
 
     def initialize
       @tiles = {

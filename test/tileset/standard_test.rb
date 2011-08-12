@@ -11,7 +11,7 @@ class StandardTilesetTest < Test::Unit::TestCase
           @tileset = RubyCarcassonne::Tileset::Standard.new
         }
         should("contain #{number} different #{designation} tiles") {
-          tiles = @tileset.tiles.select { |tile| tile == template }
+          tiles = @tileset.select { |tile| tile == template }
           assert_equal number, tiles.length
           (0..(number - 2)).each { |i| ((i + 1)..(number - 1)).each { |j|
             assert !tiles[i].equal?(tiles[j]) } }
@@ -246,10 +246,10 @@ class StandardTilesetTest < Test::Unit::TestCase
       }
       should("thrash previous picked tile when picking and keep the tile picked until next pick") {
         (0..9).each {
-          tiles = @tileset.tiles.clone
+          tiles = @tileset.to_a
           picked = @tileset.picked
           pick = @tileset.pick
-          assert_equal tiles - [picked], @tileset.tiles
+          assert_equal tiles - [picked], @tileset.to_a
           assert_equal pick, @tileset.picked
         }
       }
