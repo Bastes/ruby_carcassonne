@@ -204,7 +204,8 @@ module RubyCarcassonne::Tileset
       end
     end
 
-    attr_reader :tiles
+    attr_reader :tiles,
+                :picked
 
     def initialize
       @tiles = {
@@ -233,10 +234,15 @@ module RubyCarcassonne::Tileset
         Tiles::M => 4,
         Tiles::MR => 2
       }.inject([]) { |r, p| r + Array.new(p[1]) { p[0].generate } }
+      @picked = @tiles.first
     end
 
     def each *args, &block
       @tiles.each *args, &block
+    end
+
+    def pick
+      @picked = (@tiles -= [@picked]).sample
     end
   end
 end

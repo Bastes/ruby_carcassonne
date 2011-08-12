@@ -220,5 +220,39 @@ class StandardTilesetTest < Test::Unit::TestCase
         RubyCarcassonne::Landmark::Field.new(0b111111101111),
         RubyCarcassonne::Landmark::Road. new(0b000000010000),
         RubyCarcassonne::Landmark::Monastery.new))
+
+    context("instances") {
+      setup {
+        @tilesets = (0..9).map { RubyCarcassonne::Tileset::Standard.new }
+      }
+      should("always pick the IC tile as first tile") {
+        @tilesets.each { |t|
+          assert_equal RubyCarcassonne::Tileset::Standard::Tiles::IC.generate, t.picked }
+      }
+      context("with 10 tiles picked") {
+        setup {
+          @tiles_picked = @tilesets.map { |t| (0..9).map { t.pick } }
+        }
+        should("not have pick the same sequence twice") {
+          assert !(0..@tiles_picked.length.pred.pred).
+            any? { |i| (i.next..@tiles_picked.length.pred).
+              any? { |j| @tiles_picked[i] == @tiles_picked[j] } }
+        }
+      }
+    }
+    context("instance") {
+      setup {
+        @tileset = RubyCarcassonne::Tileset::Standard.new
+      }
+      should("thrash previous picked tile when picking and keep the tile picked until next pick") {
+        (0..9).each {
+          tiles = @tileset.tiles.clone
+          picked = @tileset.picked
+          pick = @tileset.pick
+          assert_equal tiles - [picked], @tileset.tiles
+          assert_equal pick, @tileset.picked
+        }
+      }
+    }
   }
 end
