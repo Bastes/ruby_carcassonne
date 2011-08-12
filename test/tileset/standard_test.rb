@@ -257,6 +257,12 @@ class StandardTilesetTest < Test::Unit::TestCase
         assert_equal 72, @tileset.length
         (0..9).each { |i| @tileset.pick; assert_equal 71 - i, @tileset.length }
       }
+      should("be empty and return nil when picking after the last tile") {
+        @tileset.length.pred.times { @tileset.pick }
+        assert_equal nil, @tileset.pick
+        assert @tileset.empty?
+        assert_equal nil, @tileset.picked
+      }
     }
   }
 end

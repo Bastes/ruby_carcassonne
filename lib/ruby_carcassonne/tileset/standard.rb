@@ -249,5 +249,9 @@ module RubyCarcassonne::Tileset
     def length
       @tiles.length
     end
+
+    def empty?
+      @tiles.empty?
+    end
   end
 end
