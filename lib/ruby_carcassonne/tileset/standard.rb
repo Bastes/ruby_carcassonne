@@ -245,5 +245,9 @@ module RubyCarcassonne::Tileset
     def pick
       @picked = (@tiles -= [@picked]).sample
     end
+
+    def length
+      @tiles.length
+    end
   end
 end

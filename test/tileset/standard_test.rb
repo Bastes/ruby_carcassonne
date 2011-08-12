@@ -253,6 +253,10 @@ class StandardTilesetTest < Test::Unit::TestCase
           assert_equal pick, @tileset.picked
         }
       }
+      should("indicate the number of remaining tiles") {
+        assert_equal 72, @tileset.length
+        (0..9).each { |i| @tileset.pick; assert_equal 71 - i, @tileset.length }
+      }
     }
   }
 end
