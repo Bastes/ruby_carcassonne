@@ -76,7 +76,7 @@ class StandardTilesetTest < Test::Unit::TestCase
         RubyCarcassonne::Landmark::Field.new(0b001100000000),
         RubyCarcassonne::Landmark::City. new(0b000000111000)))
     should_have_tiles.call(
-      3,
+      4,
       "I-shaped road near a single city",
       RubyCarcassonne::Tileset::Standard::Tiles::IC,
       RubyCarcassonne::Tile.new(

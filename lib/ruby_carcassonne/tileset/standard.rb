@@ -208,13 +208,13 @@ module RubyCarcassonne::Tileset
 
     def initialize
       @tiles = {
+        Tiles::IC => 4,
         Tiles::L => 9,
         Tiles::I => 8,
         Tiles::T => 4,
         Tiles::X => 1,
         Tiles::C => 5,
         Tiles::LC => 3,
-        Tiles::IC => 3,
         Tiles::CL => 3,
         Tiles::CT => 3,
         Tiles::D => 3,
